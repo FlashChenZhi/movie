@@ -1,7 +1,7 @@
 <template>
     <div class="movie_body">
         <ul>
-            <li>
+            <!-- <li>
                 <div class="pic_show"><img src="/images/movie_1.jpg" ></div>
                 <div class="info_list">
                     <h2>扫赌2</h2>
@@ -12,26 +12,16 @@
                 <div class="btn_mall">
                     立即购票
                 </div>
-            </li>
-            <li>
-                 <div class="pic_show"><img src="/images/movie_2.jpg"></div>
+            </li> -->
+             <li v-for="item in movieList" :key="item.id">
+                <div class="pic_show"><img :src="item.img | setWH('128.180')" ></div>
                 <div class="info_list">
-                    <h2>使徒行者</h2>
-                    <p>观众评分：8.2<span></span></p>
-                    <p>主演：导演：编剧：出品人：</p>
-                    <p>一场生与死,明与暗的较量...</p>
-                </div>
-                <div class="btn_mall">
-                    立即购票
-                </div>
-            </li>
-            <li>
-                 <div class="pic_show"><img src="/images/movie_3.jpg" ></div>
-                <div class="info_list">
-                    <h2>复仇者联盟3</h2>
-                    <p>观众评分：8.9<span></span></p>
-                    <p>主演：导演：编剧：出品人：</p>
-                    <p>一群非人类打打杀杀的游戏？！</p>
+                    <h2>{{item.nm}}
+                        <!-- <img v-if="item.version" src="@/assets/max.png" /> -->
+                    </h2>
+                    <p>观众评分：<span class="grade">{{item.sc}}</span></p>
+                    <p>主演：{{item.star}}</p>
+                    <p>{{item.showInfo}}</p>
                 </div>
                 <div class="btn_mall">
                     立即购票
@@ -43,7 +33,20 @@
 
 <script>
 export default {
-    name:'NowPlaying'
+    name:'NowPlaying',
+    data(){
+        return {
+            movieList : []
+        }
+    },
+    mounted(){
+        this.axios.get('/api/movieOnInfoList?cityId=10').then(res =>{
+            var msg = res.data.msg;
+            if(msg === 'ok'){
+                this.movieList = res.data.data.movieList;
+            }
+        })
+    }
 }
 </script>
 

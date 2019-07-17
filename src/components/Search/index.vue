@@ -3,13 +3,13 @@
         <div class="search_input">
             <div class="search_input_wrapper">
                 <i class="iconfont icon_sousuo"></i>
-                <input type="text">
+                <input type="text" v-model="message">
             </div>
         </div>
         <div class="search_result">
             <h3>电影/电视剧/综艺</h3>
             <ul>
-                <li>
+                <!-- <li>
                     <div class="img"><img src="/images/movie_1.jpg"></div>
                     <div class="info">
                         <p><span>扫毒2</span><span>8.6</span></p>
@@ -17,23 +17,14 @@
                         <p>剧情,动作,犯罪</p>
                         <p>2019-07-05</p>
                     </div>
-                </li>
-                <li>
-                    <div class="img"><img src="/images/movie_2.jpg"></div>
+                </li> -->
+                 <li v-for="item in movieList" :key="item.id">
+                    <div class="img"><img :src="item.img | setWH('128.180')"></div>
                     <div class="info">
-                        <p><span>使徒行者</span><span>8.2</span></p>
-                        <p>张家辉,吴镇宇</p>
-                        <p>剧情,动作,犯罪</p>
-                        <p>2018-06-28</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="img"><img src="/images/movie_3.jpg"></div>
-                    <div class="info">
-                        <p><span>复仇者联盟3</span><span>8.9</span></p>
-                        <p>小罗伯特·唐尼, 斯嘉丽·约翰逊</p>
-                        <p>剧情,科幻,动作</p>
-                        <p>2018-03-31</p>
+                        <p><span>{{item.nm}}</span><span>{{item.sc}}</span></p>
+                        <p>{{item.enm}}/p>
+                        <p>{{item.cat}}</p>
+                        <p>{{item.rt}}</p>
                     </div>
                 </li>
             </ul>
@@ -43,7 +34,44 @@
 
 <script>
 export default {
-    name:'Search'
+    name:'Search',
+    data(){
+        return{
+            message:'',
+            movieList:[]
+        }
+    },
+    methods:{
+        cancelRequest(){
+            if(typeof this.source === 'function' ){
+                this.source("终止请求")
+            }
+        }
+    },
+    watch:{
+        message(newVal){
+            var that =this;
+            this.cancelRequest()
+            this.axios.get('/api/searchList?cityId=10&kw='+newVal,{
+                cancelToken: new this.axios.CancelToken(function executor(c){
+                    that.source = c ;
+                })
+            }).then((res) =>{
+                    var message = res.data.msg;
+                    var movie   = res.data.data.movies;
+                    if(message && movie){
+                        this.movieList = res.data.data.movies.list;
+                    }
+            }).catch((error) =>{
+                if(this.axios.isCancel(error)){
+                    //若请求被取消, 则返回取消的message
+                    console.log("Request canceled",error.message)
+                }else{
+                    console.log(error)
+                }
+            });
+        }
+    }
 }
 </script>
 
