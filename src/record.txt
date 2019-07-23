@@ -1,0 +1,7 @@
+重要记录
+1.  mounted()方法和activated()方法的区别：
+<1> mounted()方法：每次更新都会重新执行mounted()方法里面的请求，
+    当有缓存机制keep-alive存在的时候,将不再触发mounted生命周期
+<2> activated()方法 ：存在keep-alive 组件激活时调用 
+
+
