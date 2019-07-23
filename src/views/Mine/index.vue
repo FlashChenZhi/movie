@@ -1,8 +1,8 @@
 <template>
      <div id="main">
         <Header title="我的电影"/>
-            <div class="content">
-                <Login />
+            <div id="content">
+                <router-view />
             </div>
         <TabBar />
     </div>

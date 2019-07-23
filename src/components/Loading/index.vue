@@ -1,5 +1,23 @@
 <template>
-    <div class="loader"></div>
+    <div class="loader">
+	<div class="loader-inner">
+		<div class="loader-line-wrap">
+			<div class="loader-line"></div>
+		</div>
+		<div class="loader-line-wrap">
+			<div class="loader-line"></div>
+		</div>
+		<div class="loader-line-wrap">
+			<div class="loader-line"></div>
+		</div>
+		<div class="loader-line-wrap">
+			<div class="loader-line"></div>
+		</div>
+		<div class="loader-line-wrap">
+			<div class="loader-line"></div>
+		</div>
+	</div>
+</div>
 </template>
 
 <script>
@@ -10,156 +28,92 @@ export default {
 
 <style scoped>
 .loader {
-  position: relative;
-  width: 2.5em;
-  height: 2.5em;
-  transform: rotate(165deg);
+    background: #000;
+    background: radial-gradient(#222, #000);
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 99999;
 }
- .loader:before,
- .loader:after {
-    content: '';
+.loader-inner {
+    bottom: 0;
+    height: 60px;
+    left: 0;
+    margin: auto;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    display: block;
-    width: 0.5em;
-    height: 0.5em;
-    border-radius: 0.5em / 2;
-    transform: translate(-50%, -50%);
-  }
-  
-  .loader:before {
-    animation: before 2s infinite;
-  }
-
-.loader:after {
-    animation: after 2s infinite;
+    right: 0;
+    top: 0;
+    width: 100px;
 }
-
-@keyframes before {
-  0% {
-    width: 0.5em;
-    box-shadow:
-     (2.5em - 0.5em) / 2 (-((2.5em - 0.5em) / 2 - 0.5em)) 
-     nth(   hsla(337, 84, 48, 0.75)
-            hsla(160, 50, 48, 0.75)
-            hsla(190, 61, 65, 0.75)
-            hsla( 41, 82, 52, 0.75), 1),
-      (-((2.5em - 0.5em) / 2)) ((2.5em - 0.5em) / 2 - 0.5em) 
-      nth(  hsla(337, 84, 48, 0.75)
-            hsla(160, 50, 48, 0.75)
-            hsla(190, 61, 65, 0.75)
-            hsla( 41, 82, 52, 0.75), 3);
-  }
-  35% {
-    width: 2.5em;
-    box-shadow:
-      0 (-((2.5em - 0.5em) / 2 - 0.5em)) 
-      nth(  hsla(337, 84, 48, 0.75)
-            hsla(160, 50, 48, 0.75)
-            hsla(190, 61, 65, 0.75)
-            hsla( 41, 82, 52, 0.75), 1), 0 ((2.5em - 0.5em) / 2 - 0.5em)  
-      nth(  hsla(337, 84, 48, 0.75)
-            hsla(160, 50, 48, 0.75)
-            hsla(190, 61, 65, 0.75)
-            hsla( 41, 82, 52, 0.75), 3);
-  }
-  70% {
-    width: 0.5em;
-    box-shadow:
-      (-((2.5em - 0.5em) / 2)) (-((2.5em - 0.5em) / 2 - 0.5em))
-    nth( hsla(337, 84, 48, 0.75)
-         hsla(160, 50, 48, 0.75)
-         hsla(190, 61, 65, 0.75)
-         hsla( 41, 82, 52, 0.75), 1),
-      (2.5em - 0.5em) / 2 ((2.5em - 0.5em) / 2 - 0.5em) 
-    nth( hsla(337, 84, 48, 0.75)
-         hsla(160, 50, 48, 0.75)
-         hsla(190, 61, 65, 0.75)
-         hsla( 41, 82, 52, 0.75), 3);
-  }
-  100% {
-    box-shadow:
-      (2.5em - 0.5em) / 2 (-((2.5em - 0.5em) / 2 - 0.5em)) 
-    nth( hsla(337, 84, 48, 0.75)
-         hsla(160, 50, 48, 0.75)
-         hsla(190, 61, 65, 0.75)
-         hsla( 41, 82, 52, 0.75), 1),
-      (-((2.5em - 0.5em) / 2)) ((2.5em - 0.5em) / 2 - 0.5em)
-    nth( hsla(337, 84, 48, 0.75)
-         hsla(160, 50, 48, 0.75)
-         hsla(190, 61, 65, 0.75)
-         hsla( 41, 82, 52, 0.75), 3);
-  }
+.loader-line-wrap {
+    animation: 
+		spin 2000ms cubic-bezier(.175, .885, .32, 1.275) infinite
+	;
+    box-sizing: border-box;
+    height: 50px;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    transform-origin: 50% 100%;
+    width: 100px;
 }
-
-@keyframes after {
-  0% {
-    height: 0.5em;
-    box-shadow:
-      ((2.5em - 0.5em) / 2 - 0.5em) ((2.5em - 0.5em) / 2) 
-    nth( hsla(337, 84, 48, 0.75)
-         hsla(160, 50, 48, 0.75)
-         hsla(190, 61, 65, 0.75)
-         hsla( 41, 82, 52, 0.75), 2),
-      (-((2.5em - 0.5em) / 2 - 0.5em)) (-((2.5em - 0.5em) / 2)) 
-    nth( hsla(337, 84, 48, 0.75)
-         hsla(160, 50, 48, 0.75)
-         hsla(190, 61, 65, 0.75)
-         hsla( 41, 82, 52, 0.75), 4);
-  }
-  35% {
-    height: 2.5em;
-    box-shadow:
-        ((2.5em - 0.5em) / 2 - 0.5em)  0 
-    nth( hsla(337, 84, 48, 0.75)
-         hsla(160, 50, 48, 0.75)
-         hsla(190, 61, 65, 0.75)
-         hsla( 41, 82, 52, 0.75), 2),
-      (-((2.5em - 0.5em) / 2 - 0.5em)) 0 
-    nth( hsla(337, 84, 48, 0.75)
-         hsla(160, 50, 48, 0.75)
-         hsla(190, 61, 65, 0.75)
-         hsla( 41, 82, 52, 0.75), 4);
-  }
-  70% {
-    height: 0.5em;
-    box-shadow:
-      ((2.5em - 0.5em) / 2 - 0.5em) (-((2.5em - 0.5em) / 2)) 
-    nth( hsla(337, 84, 48, 0.75)
-         hsla(160, 50, 48, 0.75)
-         hsla(190, 61, 65, 0.75)
-         hsla( 41, 82, 52, 0.75), 2),
-      (-((2.5em - 0.5em) / 2 - 0.5em)) ((2.5em - 0.5em) / 2) 
-    nth( hsla(337, 84, 48, 0.75)
-         hsla(160, 50, 48, 0.75)
-         hsla(190, 61, 65, 0.75)
-         hsla( 41, 82, 52, 0.75), 4);
-  }
-  100% {
-    box-shadow:
-      ((2.5em - 0.5em) / 2 - 0.5em) ((2.5em - 0.5em) / 2) 
-    nth( hsla(337, 84, 48, 0.75)
-         hsla(160, 50, 48, 0.75)
-         hsla(190, 61, 65, 0.75)
-         hsla( 41, 82, 52, 0.75), 2),
-      (-((2.5em - 0.5em) / 2 - 0.5em)) (-((2.5em - 0.5em) / 2)) 
-    nth( hsla(337, 84, 48, 0.75)
-         hsla(160, 50, 48, 0.75)
-         hsla(190, 61, 65, 0.75)
-         hsla( 41, 82, 52, 0.75),4);
-  }
+.loader-line {
+    border: 4px solid transparent;
+    border-radius: 100%;
+    box-sizing: border-box;
+    height: 100px;
+    left: 0;
+    margin: 0 auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100px;
 }
-
-html,
-body {
-  height: 100%;
+.loader-line-wrap:nth-child(1) { animation-delay: -50ms; }
+.loader-line-wrap:nth-child(2) { animation-delay: -100ms; }
+.loader-line-wrap:nth-child(3) { animation-delay: -150ms; }
+.loader-line-wrap:nth-child(4) { animation-delay: -200ms; }
+.loader-line-wrap:nth-child(5) { animation-delay: -250ms; }
+.loader-line-wrap:nth-child(1) .loader-line {
+    border-color: hsl(0, 80%, 60%);
+    height: 90px;
+    width: 90px;
+    top: 7px;
 }
-
-.loader {
-  position: absolute;
-  top:  calc(50% - 1.25em);
-  left: calc(50% - 1.25em);
+.loader-line-wrap:nth-child(2) .loader-line {
+    border-color: hsl(60, 80%, 60%);
+    height: 76px;
+    width: 76px;
+    top: 14px;
 }
-
+.loader-line-wrap:nth-child(3) .loader-line {
+    border-color: hsl(120, 80%, 60%);
+    height: 62px;
+    width: 62px;
+    top: 21px;
+}
+.loader-line-wrap:nth-child(4) .loader-line {
+    border-color: hsl(180, 80%, 60%);
+    height: 48px;
+    width: 48px;
+    top: 28px;
+}
+.loader-line-wrap:nth-child(5) .loader-line {
+    border-color: hsl(240, 80%, 60%);
+    height: 34px;
+    width: 34px;
+    top: 35px;
+}
+@keyframes spin {
+    0%, 15% {
+		transform: rotate(0);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
 </style>

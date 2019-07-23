@@ -50,9 +50,6 @@ export default {
                     content:nm,
                     cancel:"取消",
                     ok:"切换",
-                    // handleCancel(){
-                    //     console.log("CANCEL")
-                    // },
                     handleOk(){
                         window.localStorage.setItem("nowNm",nm);
                         window.localStorage.setItem("nowId",id);

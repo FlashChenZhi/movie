@@ -48,7 +48,6 @@ export default {
             this.isLoading =false;
         }else{
         this.axios.get('/api/cityList').then( (res) =>{
-            // console.log("RES",res)
             var msg = res.data.msg;
             if(msg === "ok"){
                 this.isLoading =false;
@@ -101,7 +100,6 @@ export default {
                 }
                     return true;
             }
-            console.log("List",hotList)
             return {
                 cityList,hotList
             }
@@ -112,7 +110,6 @@ export default {
             this.$refs.city_list.toScrollTop(-h2[index].offsetTop);
         },
         handleToCity(nm,id){
-            console.log("NM",nm,"ID",id)
             this.$store.commit('city/CITY_INFO',{nm,id});
             window.localStorage.setItem('nowNm',nm);
             window.localStorage.setItem('nowId',id);

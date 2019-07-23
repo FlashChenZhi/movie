@@ -3,22 +3,6 @@
         <Loading  v-if="isLoading" />
         <Scroller v-else>
         <ul>
-            <!-- <li >
-                <div>
-                    <span>万画影院</span>
-                    <span class="q">
-                        <span class="price">22.9</span>元起
-                    </span>
-                </div>
-                <div class="address">
-                    <span>宝山区蕰川公路杨鑫路</span>
-                    <span>13.7KM</span>
-                </div>
-                <div class="card">
-                    <div>小吃</div>
-                    <div>折扣卡</div>
-                </div>
-            </li> -->
              <li v-for="item in cinemaList" :key="item.id">
                 <div>
                     <span>{{item.nm}}</span>
@@ -56,7 +40,6 @@ export default {
         }
         this.isLoading = true;
         this.axios.get('/api/cinemaList?cityId='+cityId).then((res) =>{
-        console.log("R",res)
             var msg = res.data.msg;
             if(msg === "ok"){
                 this.cinemaList =res.data.data.cinemas;

@@ -3,18 +3,6 @@
         <Loading  v-if="isLoading" />
         <Scroller v-else :handleToScroll="handleToScroll" :handleToTouchEnd="handleToTouchEnd">
         <ul>
-            <!-- <li>
-                <div class="pic_show"><img src="/images/movie_1.jpg" ></div>
-                <div class="info_list">
-                    <h2>扫赌2</h2>
-                    <p>观众评分：8.6<span></span></p>
-                    <p>主演：导演：编剧：出品人：</p>
-                    <p>黑白两道,兄弟反目,天地对决！</p>
-                </div>
-                <div class="btn_mall">
-                    立即购票
-                </div>
-            </li> -->
             <li class="pullDown"> {{pullDownMsg}}</li>
              <li v-for="item in movieList" :key="item.id">
                 <div class="pic_show" @click="handleToDetail(item.id)"><img :src="item.img | setWH('128.180')" ></div>
@@ -50,7 +38,6 @@ export default {
     },
     methods:{
         handleToDetail(movieId){
-            // console.log("Touch The Event",movieId)
             this.$router.push('/movie/detail/1/'+movieId)
         },
         handleToScroll(pos){

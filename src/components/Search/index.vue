@@ -68,7 +68,6 @@ export default {
                     //若请求被取消, 则返回取消的message
                     console.log("Request canceled",error.message)
                 }else{
-                    console.log(error)
                 }
             });
         }
