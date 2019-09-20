@@ -1,14 +1,13 @@
 <template>
-    <div id="detailContainer" class="slide-enter-active">
+    <div id="detailContrainer" class="slide-enter-active">
         <Header title="影片详情">
             <i class="iconfont icon-right" @click="handleToBack">返回</i>
         </Header>
         <Loading v-if="isLoading"/>
-        <!-- <button class="iconfont icon-right" @click="handleToBack">返回</button> -->
-        <div v-else class="contentDetail" id="content">
+        <div v-else  id="content" class="contentDetail">
             <div class="detail_list">
-                <div class="detail_list_bg" :style="{ 'background-image' : '{url('+detailMovie.img.replace(/w\.h/,'148.208')+')}'}">一部电影</div>
-                <div class="detail_list_filter">详细内容</div>
+                <div class="detail_list_bg" :style="{ 'background-image' : 'url('+detailMovie.img.replace(/w\.h/,'148.208')+')'}"></div>
+                <div class="detail_list_filter"></div>
                 <div class="detail_list_content">
                     <div class="detail_list_img">
                        <img :src="detailMovie.img | setWH('148.208')">
@@ -61,27 +60,27 @@ export default {
         }
     },
     mounted(){
-        // console.log("V",this.movieId)
         this.axios.get('/api/detailmovie?movieId='+this.movieId).then((res) =>{
             var msg = res.data.msg;
             if(msg === 'ok'){
                 this.isLoading = false;
                 this.detailMovie = res.data.data.detailMovie;
+                // console.log("PIC",this.detailMovie.albumImg)
                 this.$nextTick(()=>{
                     new Swiper(this.$refs.detail_player,{
-                        slidePerView:'auto',
+                        slidesPerView:'auto',
                         freeMode:true,
                         freeModeSticky:true
                     });
                 });
             }
-        })
+        });
     }
 }
 </script>
 
 <style scoped>
-#detailContainer{
+#detailContrainer{
     position: absolute;
     left: 0;
     top: 0;
@@ -90,26 +89,27 @@ export default {
     min-height: 100%;
     background: white;
 }
-#detailContainer.slide-enter-active{
+#detailContrainer .slide-enter-active{
     animation: .3s slideMove;
 }
 @keyframes slideMove{
     0%{ transform: translateX(100%);   }
+    50%{ transform: translateX(50%);   }
     100%{ transform: translateX(0%);   }
 }
 #content .contentDetail{
     display: block;
-    margin: 0;
+    margin-bottom: 0;
 }
 #content .detail_list{
     height: 200px;
-    width: 100px;
+    width: 100%;
     position: relative;
     overflow: hidden;
 }
 .detail_list .detail_list_bg{
-    height: 200px;
-    width: 100px;
+    height:100%;
+    width: 100%;
     background: 0 40%;
     filter: blur(20px);
     background-size: cover;
@@ -118,18 +118,18 @@ export default {
     left: 0;
 }
 .detail_list .detail_list_filter{
-    height: 100px;
-    width: 100px;
-    position: absolute;
+    height: 100%;
+    width: 100%;
     background-color: #40454d;
     opacity: .55;
     position:absolute;
     top: 0;
     left: 0;
+    z-index: 1;
 }
 .detail_list .detail_list_content{
-    height: 100px;
-    width: 100px;
+    height: 100%;
+    width: 100%;
     display: flex;
     position: absolute;
     left: 0;
@@ -143,8 +143,8 @@ export default {
     margin: 20px;
 }
 .detail_list .detail_list_img img{
-    height: 100px;
-    width: 100px;
+    height: 100%;
+    width: 100%;
 }
 .detail_list .detail_list_info{
     margin-top: 20px;

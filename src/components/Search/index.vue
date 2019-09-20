@@ -9,20 +9,11 @@
         <div class="search_result">
             <h3>电影/电视剧/综艺</h3>
             <ul>
-                <!-- <li>
-                    <div class="img"><img src="/images/movie_1.jpg"></div>
-                    <div class="info">
-                        <p><span>扫毒2</span><span>8.6</span></p>
-                        <p>刘德华,古天乐</p>
-                        <p>剧情,动作,犯罪</p>
-                        <p>2019-07-05</p>
-                    </div>
-                </li> -->
                  <li v-for="item in movieList" :key="item.id">
                     <div class="img"><img :src="item.img | setWH('128.180')"></div>
                     <div class="info">
                         <p><span>{{item.nm}}</span><span>{{item.sc}}</span></p>
-                        <p>{{item.enm}}/p>
+                        <p>{{item.enm}}</p>
                         <p>{{item.cat}}</p>
                         <p>{{item.rt}}</p>
                     </div>
@@ -33,6 +24,7 @@
 </template>
 
 <script>
+import { clearTimeout, setTimeout } from 'timers';
 export default {
     name:'Search',
     data(){
@@ -49,6 +41,15 @@ export default {
         }
     },
     watch:{
+        /** 关于搜索功能,截流最后一次触发(采取函数防抖策略)
+         * 1.设置延时定时器：
+         *       clearTimeout();
+         *       setTimeout('请求方法',时间值)
+         * 2.ajax方法：abort()
+         * 3.取消请求方法：<详情如下实例>
+         *       this.cancelRequest()
+         *       this.axios.CancelToken()
+         */
         message(newVal){
             var that =this;
             var cityId =this.$store.state.city.id;

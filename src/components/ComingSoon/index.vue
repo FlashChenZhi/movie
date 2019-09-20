@@ -1,21 +1,20 @@
 <template>
     <div class="movie_body">
         <Loading  v-if="isLoading" />
-        <Scroller v-else>
+        <Scroller v-else :handleToScroll="handleToScroll" :handleToTouchEnd="handleToTouchEnd">
         <ul>
+            <li class="pullDown"> {{pullDownMsg}}</li>
             <li v-for="item in comingList" :key="item.id">
-                <div class="pic_show"  @click="handleToDetail(item.id)"><img :src="item.img | setWH('128.180')" ></div>
+                <div class="pic_show"  @tap="handleToDetail(item.id)"><img :src="item.img | setWH('128.180')" ></div>
                 <div class="info_list">
-                    <h2  @click="handleToDetail(item.id)">{{item.nm}}
-                        <!-- <img v-if="item.version" src="@/assets/max.png" /> -->
+                    <h2  @tap="handleToDetail(item.id)">{{item.nm}}
+                        <img v-if="item.version" src="@/assets/maxs.png" />
                     </h2>
                     <p><span class="person">{{item.wish}} </span>人想看</p>
                     <p>主演：{{item.star}}</p>
                     <p>{{item.rt}} 上映</p>
                 </div>
-                <div class="btn_mall">
-                    预售
-                </div>
+                <div class="btn_mall">  预售 </div>
             </li>
         </ul>
         </Scroller>
@@ -28,6 +27,7 @@ export default {
      data(){
         return {
             comingList : [],
+            pullDownMsg:'',
             isLoading:true,
             prevCityId:-1
         }
@@ -35,6 +35,25 @@ export default {
     methods:{
         handleToDetail(movieId){
             this.$router.push('/movie/detail/2/'+movieId)
+        },
+        handleToScroll(pos){
+            if(pos.y > 30){
+                this.pullDownMsg = "正在更新中"
+            }
+        },
+        handleToTouchEnd(pos){
+            if(pos.y > 30){
+                this.axios.get('/api/movieOnInfoList?cityId=11').then(res =>{
+                var msg = res.data.msg;
+                    if(msg === 'ok'){
+                        this.pullDownMsg = "更新成功"
+                        setTimeout(()=>{
+                        this.movieList = res.data.data.movieList;
+                        this.pullDownMsg = ""
+                        },1000)  
+                    }
+                });
+            }
         }
     },
     activated(){
@@ -124,5 +143,10 @@ export default {
 }
 .movie_body .btn_pre{
     background-color: #3c9fe6;
+}
+.movie_body .pullDown{
+    margin: 0;
+    padding: 0;
+    border: none;
 }
 </style>

@@ -12,12 +12,13 @@ Vue.component('Scroller',Scroller)
 Vue.component('Loading',Loading)
 Vue.use(ElementUI);
 
-Vue.config.productionTip = false
+Vue.filter('setWH',(url,arg) =>{
+  return url.replace(/w\.h/,arg)
+});
+
+Vue.config.productionTip = false;
 Vue.prototype.axios =  axios;
 
-Vue.filter('setWH',(url,arg) =>{
-  return url.replace('/w\.h/',arg)
-})
 
 new Vue({
   router,

@@ -5,18 +5,18 @@
         <ul>
             <li class="pullDown"> {{pullDownMsg}}</li>
              <li v-for="item in movieList" :key="item.id">
-                <div class="pic_show" @click="handleToDetail(item.id)"><img :src="item.img | setWH('128.180')" ></div>
+                <div class="pic_show" @tap="handleToDetail(item.id)">
+                    <img :src="item.img | setWH('128.180')" >
+                </div>
                 <div class="info_list">
-                    <h2 @click="handleToDetail(item.id)">{{item.nm}}
-                        <!-- <img v-if="item.version" src="@/assets/max.png" /> -->
+                    <h2 @tap="handleToDetail(item.id)">{{item.nm}}
+                        <img v-if="item.version" src="@/assets/maxs.png" />
                     </h2>
                     <p>观众评分：<span class="grade">{{item.sc}}</span></p>
                     <p>主演：{{item.star}}</p>
                     <p>{{item.showInfo}}</p>
                 </div>
-                <div class="btn_mall">
-                    立即购票
-                </div>
+                <div class="btn_mall"> 购票 </div>
             </li>
         </ul>
         </Scroller>
@@ -70,34 +70,9 @@ export default {
             var msg = res.data.msg;
             if(msg === 'ok'){
                 this.movieList = res.data.data.movieList;
+        // console.log("数据",this.movieList);
                 this.isLoading = false;
                 this.prevCityId =cityId;
-                //当页面渲染完成后才调用滚动条
-                // this.$nextTick(()=>{
-                //     var scroll = new BScroll(this.$refs.movie_body, {
-                //         tap: true,
-                //         probeType: 1    
-                //     })
-                //         scroll.on("scroll",(pos)=>{
-                //             if(pos.y > 30){
-                //                 this.pullDownMsg = "正在更新中"
-                //             }
-                //     });
-                //         scroll.on("touchEnd",(pos)=>{
-                //             if(pos.y > 30){
-                //                 this.axios.get('/api/movieOnInfoList?cityId=11').then(res =>{ 
-                //                     var msg = res.data.msg;
-                //                     if(msg === 'ok'){
-                //                         this.pullDownMsg = "更新成功"
-                //                         setTimeout(()=>{
-                //                             this.movieList = res.data.data.movieList;
-                //                              this.pullDownMsg = ""
-                //                         },1000)  
-                //                     }
-                //                 });
-                //             }
-                //     });
-                // });
             }
         })
     }

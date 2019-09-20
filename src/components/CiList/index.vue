@@ -101,7 +101,7 @@ export default {
     color: #f03d37;
 }
 .cinema_body .price{
-    font-size: 18px;font-size: 18px;
+    font-size: 18px;
 }
 .cinema_body .address{
     font-size: 13px;

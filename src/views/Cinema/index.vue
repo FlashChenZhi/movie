@@ -1,7 +1,7 @@
 <template>
      <div id="main">
         <Header title="私人影院"/>
-        <div class="content">
+        <div id="content">
             <div class="cinema_menu">
                 <div class="city_switch">
                     全城<i class="iconfont icon-lower-triangle"></i>
